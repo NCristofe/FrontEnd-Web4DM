@@ -1,0 +1,28 @@
+Fluxo do login
+
+API -> AuthService -> AuthContext -> AuthPages
+
+Service: 
+Requisição com o endpoint específico do back e quais dados ele irá enviar para o back.
+
+Context:
+É a função que o front vai consumir. 
+Quando clicar no botão login ele vai pro AuthContext rodar a função signin() consumindo as variáveis que foram inseridas no input do AuthPages.
+
+1. página de login - AuthPages - usuário informa email e senha (inputs).
+
+2. Quando clicar no botão login, o submit do form é feito, chamando a arrow function submit (AuthPages). 
+   Na function, ele fez um try enviando os dados para o AuthContext. 
+   O resultado desse try é baseado do return do AuthContext (sucess, error, etc). 
+   Ele envia os valores do form como "form".
+
+   const submit = (form) => { } -> AuthPages
+   
+3. Indo para método signIn do AuthContext, a variável form se transforma em credentials.
+   O AuthContext cria a variável token e determina que ela é igual ao retorno do loginRequest(AuthService), pois é esperado a resposta      do banco com o login o JWT do usuário.
+
+4. O AuthService faz o trabalho do Postman. Insere o endpoint, insere o header do authorization e insere o body do json (credentials tratado anteriormente) e aguarda o retorno da API.
+
+5. O retorno da api é enviado para o AuthContext e ele faz o tratamento do retorno.
+
+6. O retorno é exibido no front, executando o login ou dando erro, sendo o retorno do try da function submit.
