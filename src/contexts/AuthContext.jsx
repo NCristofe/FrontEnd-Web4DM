@@ -52,11 +52,12 @@ export function AuthProvider({ children }) {
         };
     }, []);
 
-    const signIn = async (email, password) => {
+    // Recebe o form vindo do AuthPages e o envia como credentials para o AuthService
+    const signIn = async (credentials) => {
         clearSession();
         const version = sessionVersion.current;
 
-        const token = await loginRequest({ email, password });
+        const token = await loginRequest(credentials);
 
         if (!token) throw new Error('Falha ao realizar login');
 
@@ -73,8 +74,8 @@ export function AuthProvider({ children }) {
         }
     };
 
-    const signUp = async (name, email, password) => {
-        return registerRequest({ name, email, password });
+    const signUp = async (userData) => {
+        return registerRequest(userData);
     };
 
     const logout = () => {
